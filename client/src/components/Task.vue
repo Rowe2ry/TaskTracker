@@ -1,6 +1,11 @@
 <template>
-    <div class="task">
-        <h3>{{ task.text }}</h3>
+    <div @dblclick="$emit('toggle-reminder', task.id)" :class="[task.reminder ? 'reminder' : '', 'task']">
+        <h3>
+            {{ task.text }}
+            <span @click="$emit('delete-task', task.id)" class="del-btn">
+                DEL
+            </span>
+        </h3>
         <p>{{ task.day }}</p>
     </div>
 </template>
@@ -10,12 +15,13 @@
         name: 'Task',
         props: {
             task: Object
-        }
+        },
     }
 </script>
 
 <style scoped>
-    .fas {
+    .fas,
+    .del-btn {
         color: red;
     }
     .task {
